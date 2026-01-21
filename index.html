@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maojun Sun | Ph.D. Student @ PolyU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. 基础设置 --- */
+        :root {
+            --primary-blue: #0056b3;
+            --primary-accent: #0066cc;
+            --text-main: #222;
+            --text-light: #555;
+            --text-date: #888;
+            --bg-color: #ffffff;
+            --sidebar-width: 260px;
+            --nav-height: 54px;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            scroll-behavior: smooth; /* 平滑滚动 */
+        }
+
+        a { color: var(--primary-blue); text-decoration: none; transition: 0.2s; }
+        a:hover { text-decoration: underline; opacity: 0.8; }
+
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-height);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); /* 核心：Apple磨砂效果 */
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: var(--glass-border);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-inner {
+            display: flex;
+            gap: 40px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .nav-link { color: var(--text-main); opacity: 0.8; }
+        .nav-link:hover { opacity: 1; color: var(--primary-accent); }
+        .nav-link.active { opacity: 1; color: var(--primary-accent); font-weight: 600; }
+
+        /* --- 2. 布局结构 --- */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: calc(var(--nav-height) + 60px) 24px 60px; /* 顶部留出导航栏高度 */
+            display: grid;
+            grid-template-columns: 260px 1fr; /* 左侧固定，右侧自适应 */
+            gap: 60px;
+        }
+
+        /* --- 3. 左侧边栏 (Sidebar) --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            flex-shrink: 0;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 40px;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 25px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .name { font-size: 26px; font-weight: 700; margin-bottom: 10px; color: #000; letter-spacing: -0.5px; }
+        .role { font-size: 15px; color: #444; margin-bottom: 5px; font-weight: 500; }
+        .affiliation { font-size: 14px; color: #666; margin-bottom: 25px; line-height: 1.4; }
+
+        .contact-list { font-size: 13px; color: #555; margin-bottom: 30px; }
+        .contact-list p { margin: 6px 0; display: flex; align-items: center; word-break: break-all; }
+        .contact-list i { width: 20px; color: #999; margin-right: 5px; flex-shrink: 0; }
+
+        .social-icons { margin-bottom: 40px; }
+        .social-icons a { font-size: 18px; color: #555; margin-right: 15px; }
+        .social-icons a:hover { color: var(--primary-blue); }
+
+        /* 导航菜单 */
+        .nav-menu { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #f0f0f0; }
+        .nav-item {
+            padding: 4px 0 4px 20px;
+            color: #777; font-weight: 500; font-size: 14px;
+            border-left: 3px solid transparent; margin-left: -2.5px;
+        }
+        .nav-item:hover { color: var(--primary-blue); }
+        /* 简单的高亮效果，实际滚动监听需要JS，这里仅做样式 */
+        .nav-item.active { color: var(--primary-blue); border-left-color: var(--primary-blue); }
+
+        /* --- 4. 右侧主内容 --- */
+        .main-content { flex: 1; max-width: 750px; }
+        section { margin-bottom: 60px; }
+        h2 { font-size: 22px; font-weight: 700; margin-bottom: 25px; color: #111; border-bottom: 1px solid #eee; padding-bottom: 10px;}
+
+        /* 内容通用 */
+        p { text-align: justify; margin-bottom: 15px; font-size: 15px; }
+        ul { padding-left: 18px; margin-bottom: 15px; }
+        li { margin-bottom: 8px; font-size: 15px; color: #333; }
+
+        /* News 样式 */
+        .news-row { display: flex; margin-bottom: 15px; align-items: baseline; }
+        .news-date { width: 110px; flex-shrink: 0; font-size: 13px; color: var(--text-date); font-family: 'Inter', monospace; font-weight: 500; }
+        .news-text { font-size: 14px; color: #333; }
+
+        /* News 滑动条容器 */
+        .news-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #ccc #f5f5f5;
+        }
+        .news-scroll-container::-webkit-scrollbar { height: 6px; }
+        .news-scroll-container::-webkit-scrollbar-track { background: #f5f5f5; border-radius: 3px; }
+        .news-scroll-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+        .news-scroll-item {
+            flex-shrink: 0;
+            width: 280px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-blue);
+        }
+        .news-scroll-date { font-size: 12px; color: var(--text-date); font-family: monospace; margin-bottom: 6px; }
+        .news-scroll-text { font-size: 13px; color: #333; line-height: 1.5; }
+
+        /* Publications 样式 */
+        .pub-item { display: flex; gap: 20px; margin-bottom: 35px; }
+        .pub-img { position: relative; width: 160px; flex-shrink: 0; }
+        .pub-img img { width: 100%; display: block; border-radius: 6px 6px 0 0; border: 1px solid #eee; border-bottom: none; }
+        .pub-img-badge {
+            width: 100%;
+            background: var(--primary-blue);
+            color: whitesmoke;
+            padding: 0.5px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .pub-details { flex: 1; }
+        .pub-title { font-size: 16px; font-weight: 700; color: #000; margin-bottom: 6px; line-height: 1.4; }
+        .pub-authors { font-size: 14px; color: #444; margin-bottom: 6px; }
+        .pub-venue { font-size: 13px; font-style: italic; color: #666; margin-bottom: 10px; }
+
+        .pub-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .pub-btn {
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            color: var(--primary-blue); cursor: pointer; background: none; border: none; padding: 0; font-family: 'Inter', sans-serif;
+        }
+        .pub-btn:hover { text-decoration: underline; }
+        /* 这种样式模拟 [PDF] */
+        .pub-btn::before { content: "["; color: #999; }
+        .pub-btn::after { content: "]"; color: #999; }
+
+        /* Experience 样式 */
+        .exp-item { display: flex; gap: 15px; margin-bottom: 25px; }
+        .exp-logo { width: 50px; height: 50px; flex-shrink: 0; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .exp-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .exp-content { flex: 1; }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+        .exp-org { font-weight: 700; font-size: 15px; color: #000; }
+        .exp-time { font-size: 13px; color: #888; font-family: monospace; }
+        .exp-role { font-size: 14px; color: var(--primary-blue); font-weight: 500; margin-bottom: 8px; }
+        .exp-desc { font-size: 14px; color: #555; line-height: 1.5; }
+
+        /* Teaching 样式 */
+        .teach-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+        .teach-title { font-weight: 500; font-size: 14px; color: #000; flex: 1; }
+        .teach-time { font-size: 13px; color: #888; font-family: monospace; white-space: nowrap; margin-left: 20px; }
+
+        /* Awards 样式 */
+        .award-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;}
+        .award-name { color: #333; }
+        .award-date { color: #888; font-family: monospace; font-size: 13px; min-width: 80px; text-align: right; }
+
+        /* Modal 样式 */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); }
+        .modal.show { display: block; }
+        .modal-content {
+            background-color: #fefefe; margin: 15% auto; padding: 25px; border: 1px solid #888;
+            width: 80%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close:hover { color: #000; }
+        .citation-text {
+            background: #f8f9fa; padding: 15px; margin: 15px 0; overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace; font-size: 12px; border-radius: 4px; border: 1px solid #eee;
+        }
+        .copy-btn {
+            background: var(--primary-blue); color: #fff; border: none; padding: 6px 12px;
+            border-radius: 4px; font-size: 12px; cursor: pointer; float: right;
+        }
+
+        /* 语言切换按钮 */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .section-title h2 {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .lang-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #666;
+        }
+        .lang-switch a { color: var(--primary-blue); text-decoration: none; }
+        .lang-switch a:hover { text-decoration: underline; }
+        .lang-switch span { color: #ccc; }
+
+        @media (max-width: 850px) {
+            .container {
+                display: block;
+                padding: calc(var(--nav-height) + 20px) 20px 40px;
+            }
+            /* Sidebar 移到顶部 */
+            .sidebar { display: block; width: 100%; margin-bottom: 30px; }
+            .sidebar-sticky { position: static; text-align: center; }
+            .profile-photo { width: 100px; height: 100px; margin: 0 auto 12px auto; }
+            .name { font-size: 22px; margin-bottom: 8px; }
+            .role { font-size: 14px; margin-bottom: 8px; }
+            .affiliation { font-size: 13px; margin-bottom: 15px; }
+            .contact-list { font-size: 12px; margin-bottom: 15px; }
+            .contact-list p { justify-content: center; }
+            .social-icons { margin-bottom: 20px; }
+            .nav-menu {
+                display: none; /* 隐藏侧边导航，用顶部导航 */
+            }
+            .main-content { max-width: 100%; width: 100%; }
+            section { margin-bottom: 35px; }
+            h2 { font-size: 20px; }
+            .news-row { flex-direction: column; gap: 4px; }
+            .news-date { width: auto; }
+            /* News 移动端保持滚动 */
+            .news-scroll-item { width: 220px; }
+            .exp-item { flex-direction: row; gap: 12px; }
+            .exp-logo { width: 40px; height: 40px; }
+            .exp-header { flex-direction: column; gap: 4px; }
+            .exp-time { font-size: 12px; }
+            .exp-desc { margin-left: 0; }
+            .teach-item { flex-direction: column; gap: 4px; }
+            .teach-time { margin-left: 0; font-size: 12px; }
+            .award-row { flex-direction: column; gap: 4px; }
+            .award-date { text-align: left; }
+            .pub-item { flex-direction: column; }
+            .pub-img { width: 100%; max-width: 250px; margin: 0 auto 15px; }
+        }
+
+        /* 更小屏幕的优化 */
+        @media (max-width: 480px) {
+            .container { padding: calc(var(--nav-height) + 20px) 16px 30px; }
+            h2 { font-size: 18px; padding-bottom: 8px; }
+            p { font-size: 14px; }
+            li { font-size: 14px; }
+            .pub-title { font-size: 15px; }
+            .pub-authors { font-size: 13px; }
+            .pub-venue { font-size: 12px; }
+            .pub-links { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-link active">About</a>
+            <a href="project.html" class="nav-link">Projects</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+        </div>
+</nav>
+<div class="container">
+
+    <aside class="sidebar">
+        <div class="sidebar-sticky">
+            <img src="figures/personal.png" alt="Maojun Sun" class="profile-photo" onerror="this.src='https://via.placeholder.com/200?text=Maojun+Sun'">
+
+            <div class="name">Maojun Sun</div>
+            <div class="role">Ph.D. Student in AI</div>
+            <div class="affiliation">
+                Dept. DSAI & AMA<br>
+                The Hong Kong Polytechnic University
+            </div>
+
+            <div class="contact-list">
+                <p><i class="far fa-envelope"></i> mj.sun@connect.polyu.hk</p>
+                <p><i class="fas fa-map-marker-alt"></i> Hong Kong</p>
+            </div>
+
+            <div class="social-icons">
+                <a href="https://github.com/Stephen-SMJ" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/maojun-sun-736894248/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?user=GewwudwAAAAJ&hl=en" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="mailto:mj.sun@connect.polyu.hk" title="Email"><i class="far fa-envelope"></i></a>
+                <a href="https://blog.csdn.net/qq_44785351" title="CSDN"><i class="fas fa-blog"></i></a>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#about" class="nav-item">About</a>
+                <a href="#interests" class="nav-item">Research Interests</a>
+                <a href="#news" class="nav-item">News</a>
+                <a href="#publications" class="nav-item">Publications</a>
+                <a href="#experience" class="nav-item">Experience</a>
+                <a href="#awards" class="nav-item">Awards</a>
+                <a href="#skills" class="nav-item">Skills</a>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <section id="about">
+            <div class="section-title">
+                <h2>Biography 🙋</h2>
+                <span class="lang-switch"><a href="index_cn.html">中文</a><span>/</span><span>EN</span></span>
+            </div>
+            <p>
+                I am a second-year Ph.D. student at the <a href="https://www.polyu.edu.hk/dsai/">Department of Data Science & Artificial Intelligence (DSAI)</a> / <a href="https://www.polyu.edu.hk/ama/">Department of Applied Mathematics (AMA)</a>, the <a href="https://www.polyu.edu.hk">Hong Kong Polytechnic University (PolyU)</a>. I am fortunately supervised by <a href="https://www.polyu.edu.hk/ama/profile/rjhan/index.html">Prof. Han Ruijian</a>, <a href="https://sites.google.com/view/prof-jian-huang/bio">Prof. Huang Jian</a>, and <a href="https://paulyuanmath.github.io/">Prof. Yuan Yancheng</a>.
+            </p>
+            <p>
+                Before that, I worked as a research assistant at <a href="https://www.polyu.edu.hk/ama/cmfai/index.html">Research Center for the Mathematical Foundations of Generative AI (CMFAI)</a>. I obtained my Master's degree with <strong>Distinction Honor</strong> in Data Science and Analytics in 2024, under supervision of <a href="https://www.polyu.edu.hk/dsai/people/academic-staff/jiangbinyan/">Prof. Jiang Binyan</a>. I got my Bachelor's degree in Computer Science and Technology in 2022, and obtained the National Scholarship.
+            </p>
+            <p>
+                I am interested in areas of artificial intelligence, software development, and big data. I have more than two years of solid industry and research experience. Feel free to reach out for discussion and collaboration.
+            </p>
+        </section>
+
+        <section id="interests">
+            <h2>Research Interests 💡</h2>
+            <ul>
+                <li><strong>Agentic AI:</strong> Data Science Agent, Multi-agent System, Retrieval Augmented Generation, Benchmarks.</li>
+                <li><strong>Large Language Model:</strong> Supervised Fine-tuning and Reinforcement Learning.</li>
+                <li><strong>AI4Science:</strong> Agent4Science, Health Informatics, Medical Image, Medical Language Model.</li>
+            </ul>
+        </section>
+
+        <section id="news">
+            <h2>News 📢</h2>
+
+            <div class="news-scroll-container">
+                <div class="news-scroll-item">
+                    <div class="news-scroll-date">Aug 22, 2025</div>
+                    <div class="news-scroll-text">Our paper <strong><a href="https://doi.org/10.1080/00031305.2025.2561140">A Survey on Large Language Model-based Agents for Statistics and Data Science</a></strong> has been accepted by <strong><a href="https://www.tandfonline.com/action/journalInformation?journalCode=utas20">TAS (The American Statistician)</a></strong>. And It is selected with discussion 🎉.</div>
+                </div>
+
+                <div class="news-scroll-item">
+                    <div class="news-scroll-date">May 16, 2025</div>
+                    <div class="news-scroll-text">Paper <strong><a href="https://doi.org/10.1080/01621459.2025.2510000">LAMBDA: A Large Model Based Data Agent</a></strong> accepted by top journal <strong><a href="https://www.tandfonline.com/action/journalInformation?journalCode=uasa20">JASA</a></strong> 🎉. And it is our great honor that the paper is selected with discussion (Only 2) and will be presented at <a href="https://ww2.amstat.org/meetings/jsm/2025/">JSM 2025</a>. We are especially privileged to learn that <a href="https://statistics.stanford.edu/people/david-donoho">Prof. David Donoho</a> will serve as one of the discussants for our work.</div>
+                </div>
+
+                <div class="news-scroll-item">
+                    <div class="news-scroll-date">Aug 30, 2024</div>
+                    <div class="news-scroll-text">Registered as a Ph.D. student at <a href="https://www.polyu.edu.hk">Hong Kong Polytechnic University</a>.</div>
+                </div>
+
+                <div class="news-scroll-item">
+                    <div class="news-scroll-date">Jul 15, 2024</div>
+                    <div class="news-scroll-text">Graduated with Distinction Honor 🥇 from Msc in Data Science & Analytics, <a href="https://www.polyu.edu.hk">PolyU</a>.</div>
+                </div>
+
+                <div class="news-scroll-item">
+                    <div class="news-scroll-date">Dec 2023</div>
+                    <div class="news-scroll-text">My fans exceed 1000 on <a href="https://blog.csdn.net/qq_44785351?type=blog">CSDN</a> 🔥.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Papers & Manuscripts 📰</h2>
+
+            <div class="pub-item">
+                <div class="pub-img">
+                    <img src="https://s2.loli.net/2026/01/21/WUPKGNCOZsRVfAB.png" alt="DSAEval">
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">DSAEval: Evaluating Data Science Agents on a Wide Range of Real-World Data Science Problems</div>
+                    <div class="pub-authors">
+                        <strong>Maojun Sun</strong>, Yifei Xie, Yue Wu, Ruijian Han*, Binyan Jiang, Defeng Sun, Yancheng Yuan*, Jian Huang*.
+                    </div>
+                    <div class="pub-venue">arXiv preprint arXiv:2601.13591, 2026</div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2601.13591" class="pub-btn">PAPER</a>
+                        <a href="https://dsaeval.github.io/DSAEval/" class="pub-btn">Page</a>
+                        <a href="https://github.com/AMA-CMFAI/DSAEval" class="pub-btn">Code</a>
+                        <button class="pub-btn citation-btn" data-paper="dsaeval">BibTeX</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-img">
+                    <div class="pub-img-badge">JASA</div>
+                    <img src="figures/lambda_press.gif" onerror="this.src='https://via.placeholder.com/300x150?text=LAMBDA'" alt="LAMBDA">
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">LAMBDA: A Large Model Based Data Agent</div>
+                    <div class="pub-authors">
+                        <strong>Maojun Sun</strong>, Ruijian Han, Binyan Jiang, Houduo Qi, Defeng Sun, Yancheng Yuan*, Jian Huang*.
+                    </div>
+                    <div class="pub-venue">
+                        Accepted. Journal of the American Statistical Association, 2025. (Top Journal)<br>
+                        <strong>🏅 Selected with discussion</strong>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://doi.org/10.1080/01621459.2025.2510000" class="pub-btn">Paper</a>
+                        <a href="https://www.polyu.edu.hk/ama/cmfai/lambda.html" class="pub-btn">Page</a>
+                        <a href="https://github.com/AMA-CMFAI/LAMBDA" class="pub-btn">Code</a>
+                        <a href="https://ama-cmfai.github.io/LAMBDA-Docs/#/" class="pub-btn">Docs</a>
+                        <button class="pub-btn citation-btn" data-paper="lambda">BibTeX</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-img">
+                    <div class="pub-img-badge">TAS</div>
+                    <img src="https://s2.loli.net/2025/06/16/xZME7sPSmGktQIp.png" alt="Survey">
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">A Survey on Large Language Model-based Agents for Statistics and Data Science</div>
+                    <div class="pub-authors">
+                        <strong>Maojun Sun</strong>, Ruijian Han, Binyan Jiang, Houduo Qi, Defeng Sun, Yancheng Yuan*, Jian Huang*.
+                    </div>
+                    <div class="pub-venue">Accepted. The American Statistician, 2025. (JCR Q1)<br>
+                    <strong>🏅 Selected with discussion</strong>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://doi.org/10.1080/00031305.2025.2561140" class="pub-btn">Paper</a>
+                        <a href="https://github.com/Stephen-SMJ/Reading-List-of-LLM-Based-Data-Science-Agent" class="pub-btn">Repo</a>
+                        <button class="pub-btn citation-btn" data-paper="survey">BibTeX</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-img">
+                    <img src="https://s2.loli.net/2024/11/29/bzBoHLN6ESAWxKh.png" alt="LlamaCare">
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">LlamaCare: A Large Medical Language Model for Enhancing Healthcare Knowledge Sharing</div>
+                    <div class="pub-authors"><strong>Maojun Sun</strong>.</div>
+                    <div class="pub-venue">arXiv preprint arXiv:2406.02350, 2024.</div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2406.02350" class="pub-btn">PAPER</a>
+                        <a href="https://github.com/Stephen-SMJ/LLamaCare" class="pub-btn">Code</a>
+                        <a href="https://huggingface.co/Stephen-smj/LlamaCare" class="pub-btn">HuggingFace</a>
+                        <button class="pub-btn citation-btn" data-paper="llamacare">BibTeX</button>
+                    </div>
+                </div>
+            </div>
+
+             <div class="pub-item">
+                <div class="pub-img">
+                    <img src="https://s2.loli.net/2024/11/29/nEJidjPyrYsIDf6.png" alt="Melanoma">
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">Data Enhancement for Melanoma Classification</div>
+                    <div class="pub-authors"><strong>Maojun Sun</strong>, Anxing Jiang, Zixiong Li.</div>
+                    <div class="pub-venue">IEEE ICAICE, 2021.</div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/abstract/document/9797518" class="pub-btn">Paper</a>
+                        <a href="https://github.com/Stephen-SMJ/Melanoma_Classification" class="pub-btn">Code</a>
+                        <button class="pub-btn citation-btn" data-paper="melanoma">BibTeX</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experiences 🚀</h2>
+
+            <div class="exp-item">
+                <div class="exp-logo">
+                    <img src="https://s2.loli.net/2026/01/21/JPOIF6MN39UsbYD.png" onerror="this.src='https://via.placeholder.com/50?text=PolyU'" alt="PolyU">
+                </div>
+                <div class="exp-content">
+                    <div class="exp-header">
+                        <span class="exp-org"><a href="https://www.polyu.edu.hk/">Hong Kong Polytechnic University</a></span>
+                        <span class="exp-time">Feb 2024 - Aug 2024</span>
+                    </div>
+                    <div class="exp-role">Research Assistant & Project Assistant</div>
+                    <div class="exp-desc">
+                        Research and develop on LLM for data analysis. Develop systems for <a href="https://www.polyu.edu.hk/ama/IOR/index.html"  class="pub-btn">IOR</a>, <a href="https://www.polyu.edu.hk/ama/cmfai/index.html"  class="pub-btn">CMFAI</a>, <a href="https://www.polyu.edu.hk/ama/rcna/index.html"  class="pub-btn">RCNA</a>, <a href="https://www.polyu.edu.hk/rcqf/index.html"  class="pub-btn">RCQF</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-logo">
+                    <img src="https://s2.loli.net/2026/01/21/lQdWEjow17LDScx.png" onerror="this.src='https://via.placeholder.com/50?text=HA'" alt="HA">
+                </div>
+                <div class="exp-content">
+                    <div class="exp-header">
+                        <span class="exp-org"><a href="https://innovation.ha.org.hk/">AI Lab, Hong Kong Hospital Authority</a></span>
+                        <span class="exp-time">Jul 2023 - Dec 2023</span>
+                    </div>
+                    <div class="exp-role">Student Researcher</div>
+                    <div class="exp-desc">
+                        Research and develop on LLM in diagnostic systems (fine-tuning, evaluation, prompt engineering).
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-logo">
+                    <img src="https://s2.loli.net/2026/01/21/jydnIex54iaJ7YB.png" onerror="this.src='https://via.placeholder.com/50?text=BE'" alt="Bacara">
+                </div>
+                <div class="exp-content">
+                    <div class="exp-header">
+                        <span class="exp-org"><a href="http://www.bacaraenergy.com/">Bacara Energy Technology</a></span>
+                        <span class="exp-time">Jun 2022 - Aug 2022</span>
+                    </div>
+                    <div class="exp-role">Image Algorithm Intern</div>
+                    <div class="exp-desc">
+                        Research and develop on intelligent inspection solutions for wind power drones.
+                    </div>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-logo">
+                    <img src="https://s2.loli.net/2026/01/21/3dAZS9rlYHJ28EU.png" onerror="this.src='https://via.placeholder.com/50?text=DXC'" alt="DXC">
+                </div>
+                <div class="exp-content">
+                    <div class="exp-header">
+                        <span class="exp-org"><a href="https://dxc.com/us/en">DXC Technology</a></span>
+                        <span class="exp-time">Nov 2021 - Jun 2022</span>
+                    </div>
+                    <div class="exp-role">AI Engineer</div>
+                    <div class="exp-desc">
+                        Develop on web robot "Xiao D". Research on algorithm of resume content classification and extraction.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="awards">
+            <h2>Awards 🏅</h2>
+            <div class="award-row"><span class="award-name">National Scholarship of China (0.2%)</span> <span class="award-date">12/2020</span></div>
+            <div class="award-row"><span class="award-name">Outstanding Graduation of Zhejiang Province (4%)</span> <span class="award-date">06/2022</span></div>
+            <div class="award-row"><span class="award-name">PolyU Research Postgraduate Scholarship</span> <span class="award-date">09/2024</span></div>
+            <div class="award-row"><span class="award-name">Elite Scholarship × 2 (Highest honor, 1%)</span> <span class="award-date">2020, 2021</span></div>
+            <div class="award-row"><span class="award-name">First Class Scholarship × 5</span> <span class="award-date">2018-2021</span></div>
+            <div class="award-row"><span class="award-name">Winning Prize, DJI RoboMaster Intelligent Perception</span> <span class="award-date">12/2022</span></div>
+            <div class="award-row"><span class="award-name">Second Prize of National Artificial Intelligence & Innovation Competition</span> <span class="award-date">05/2021</span></div>
+            <div class="award-row"><span class="award-name">Merit Student Award × 7</span> <span class="award-date">2018 & 2019 & 2020 & 2021</span></div>
+            <div class="award-row"><span class="award-name">Outstanding Chief Award of Computer Hospital Association</span> <span class="award-date">06/2020</span></div>
+        </section>
+
+        <section id="teaching">
+            <h2>Teaching & Talks 👨‍🏫</h2>
+
+            <div class="teach-item">
+                <span class="teach-title">Teaching Assistant, DSAI1102 Data Analytics Fundamentals, PolyU</span>
+                <span class="teach-time">25/26 S2</span>
+            </div>
+
+            <div class="teach-item">
+                <span class="teach-title">Teaching Assistant, DSAI5101 Statistical Data Mining, PolyU</span>
+                <span class="teach-time">25/26 S1</span>
+            </div>
+
+            <div class="teach-item">
+                <span class="teach-title">Teaching Assistant, Mathematics Learning Support Centre, PolyU</span>
+                <span class="teach-time">24/25 S1</span>
+            </div>
+
+            <div class="teach-item">
+                <span class="teach-title">Talk: LAMBDA @ Seminar of Mathematical Foundations of AI, Tianyuan Mathematics Research Center, Kunming, Yunnan</span>
+                <span class="teach-time">Sep 2024</span>
+            </div>
+
+            <div class="teach-item">
+                <span class="teach-title">Talk: Understanding Large Language Models @ PolyU Summer School</span>
+                <span class="teach-time">Jun 2024</span>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Professional Skills 🪀</h2>
+            <p><strong>AI & ML:</strong> LLM Fine-tuning, Image Classification, Data Mining, Target Detection, Image Segmentation, etc.</p>
+            <p><strong>Programming:</strong> Python, Java, SQL, HTML/JS/CSS, C, etc.</p>
+            <p><strong>Development:</strong> FastAPI, Flask, SpringBoot, SpringCloud, Vue, Nginx, Git, Docker, AWS, Aliyun, etc.</p>
+            <p><strong>Big Data:</strong> MySQL, Redis, Hadoop, Spark, etc.</p>
+        </section>
+
+        <section id="others">
+            <h2>Others 💌</h2>
+            <p>🎓 Research interests, please contact me by <a href="mailto:mj.sun@connect.polyu.hk">mj.sun@connect.polyu.hk</a></p>
+        </section>
+
+    </main>
+
+    <div style="margin-top: 40px;">
+        <a href="https://info.flagcounter.com/cV14"><img src="https://s11.flagcounter.com/map/cV14/size_s/txt_000000/border_FFFFFF/pageviews_0/viewers_0/flags_0/" style="width:100%; opacity:0.8;"></a>
+    </div>
+</div>
+
+<div id="citationModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>BibTeX Citation</h3>
+        <div class="citation-text" id="citationText"></div>
+        <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
+    </div>
+</div>
+
+<script>
+  const citations = {
+    dsaeval: `@article{sun2026dsaeval,
+  title={DSAEval: Evaluating Data Science Agents on a Wide Range of Real-World Data Science Problems},
+  author={Maojun Sun and Yifei Xie and Yue Wu and Ruijian Han and Binyan Jiang and Defeng Sun and Yancheng Yuan and Jian Huang},
+  year={2026},
+  eprint={2601.13591},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI}
+}`,
+    lambda: `@article{sun2025lambda,
+  title={Lambda: A large model based data agent},
+  author={Sun, Maojun and Han, Ruijian and Jiang, Binyan and Qi, Houduo and Sun, Defeng and Yuan, Yancheng and Huang, Jian},
+  journal={Journal of the American Statistical Association},
+  pages={1--13},
+  year={2025},
+  publisher={Taylor \& Francis}
+}`,
+    survey: `@article{sun2025survey,
+  title={A survey on large language model-based agents for statistics and data science},
+  author={Sun, Maojun and Han, Ruijian and Jiang, Binyan and Qi, Houduo and Sun, Defeng and Yuan, Yancheng and Huang, Jian},
+  journal={The American Statistician},
+  pages={1--14},
+  year={2025},
+  publisher={Taylor \& Francis}
+}`,
+    llamacare: `@article{sun2024llamacare,
+  title={Llamacare: A large medical language model for enhancing healthcare knowledge sharing},
+  author={Sun, Maojun},
+  journal={arXiv preprint arXiv:2406.02350},
+  year={2024}
+}`,
+    melanoma: `@inproceedings{sun2021data,
+  title={Data enhancement for melanoma classification},
+  author={Sun, Maojun and Jiang, Anxing and Li, Zixiong},
+  booktitle={2021 2nd International Conference on Artificial Intelligence and Computer Engineering (ICAICE)},
+  pages={149--155},
+  year={2021},
+  organization={IEEE}
+}`
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById("citationModal");
+    const citationText = document.getElementById("citationText");
+    const copyBtn = document.getElementById("copyBtn");
+    const closeSpan = document.querySelector('.close');
+
+    // 打开弹窗
+    document.querySelectorAll('.citation-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const paperId = this.getAttribute('data-paper');
+            if (citations[paperId]) {
+                citationText.textContent = citations[paperId];
+                modal.classList.add('show');
+            }
+        });
+    });
+
+    // 关闭弹窗逻辑
+    function closeModal() {
+        modal.classList.remove('show');
+        copyBtn.textContent = "Copy to Clipboard";
+    }
+
+    closeSpan.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if(e.key === "Escape") closeModal(); });
+
+    // 复制功能
+    copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(citationText.textContent).then(() => {
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => { copyBtn.textContent = "Copy to Clipboard"; }, 2000);
+        });
+    });
+  });
+</script>
+
+</body>
+</html>

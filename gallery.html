@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Maojun Sun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. Apple 风格全局变量 --- */
+        :root {
+            --primary-accent: #0066cc;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --bg-body: #ffffff;
+            --bg-gray: #f5f5f7;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: 1px solid rgba(0,0,0,0.1);
+            --nav-height: 54px;
+        }
+
+        /* --- 2. 基础重置 --- */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0; padding: 0;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+
+        /* --- 3. 顶部磨砂导航栏 --- */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--nav-height);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: var(--glass-border);
+            z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .nav-inner { display: flex; gap: 40px; font-size: 13px; font-weight: 500; }
+        .nav-link { color: var(--text-main); opacity: 0.8; }
+        .nav-link:hover { opacity: 1; color: var(--primary-accent); }
+        .nav-link.active { opacity: 1; color: var(--primary-accent); font-weight: 600; }
+
+        /* --- 4. 布局容器 --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(var(--nav-height) + 60px) 40px 60px;
+        }
+
+        /* --- 5. Gallery 内容 --- */
+        .main-content { min-width: 0; }
+        h2 { font-size: 28px; font-weight: 700; margin-bottom: 10px; color: #000; }
+        .subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 40px; }
+
+        /* 瀑布流布局 */
+        .gallery-grid {
+            column-count: 3; /* 默认三列 */
+            column-gap: 20px;
+        }
+        .photo-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: zoom-in;
+            background: #f0f0f0; /* 加载前的占位色 */
+        }
+        .photo-item img {
+            width: 100%; display: block;
+            transition: transform 0.5s ease;
+        }
+        .photo-item:hover img { transform: scale(1.03); }
+
+        /* 模态框 (Lightbox) */
+        .modal {
+            display: none; position: fixed; z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            max-width: 90%; max-height: 90vh;
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .close {
+            position: absolute; top: 30px; right: 40px;
+            color: #fff; font-size: 40px; font-weight: 300;
+            cursor: pointer; transition: 0.3s;
+        }
+        .close:hover { color: #ccc; }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .navbar { justify-content: center; padding: 0 20px; }
+            .nav-inner { gap: 20px; }
+            .container { padding: calc(var(--nav-height) + 40px) 16px 40px; }
+            .gallery-grid { column-count: 1; } /* 手机端单列 */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-link">About</a>
+            <a href="project.html" class="nav-link">Project</a>
+            <a href="gallery.html" class="nav-link active">Gallery</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main class="main-content" style="width: 100%;">
+            <h2>Gallery</h2>
+            <p class="subtitle">
+                Capturing moments from my research journey and daily life.
+            </p>
+
+            <div class="gallery-grid">
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/01/N75ucaxDMdUyIAb.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/01/1l2PmIjyBxuSqak.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/05/5UTiInDsN4k9gWx.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/01/wd5JvNlsRQLVrGe.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/vRWlnay2AewqB9F.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/j8uKNdRgAFibeWS.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/a1gHB4eozAGODIu.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/AeiMR42DulXIyxP.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/09/20/sZXEN3VxypAzCoK.jpg" loading="lazy">
+                </div>
+
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/09/30/PyAwLoCWGUNbci8.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/05/aA7SzbFPrqMGjmk.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/05/FxSdpUV2RNEtZCq.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/09/20/yQIR2btL1nU9YOu.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/09/30/59ajJsgz6rTieIU.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/09/30/XDrR3Geu7Tfoacg.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/09/30/QwCO9rN6jzEsMac.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/vKXqweY4gAzjOxB.jpg" loading="lazy">
+                </div>
+
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/OZmeUPjH7QlcTBG.jpg" loading="lazy">
+                </div>
+                <div class="photo-item" onclick="openModal(this)">
+                    <img src="https://s2.loli.net/2024/12/31/UNA7Ybi15dZ3IPM.jpg" loading="lazy">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // 打开模态框
+        function openModal(element) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("modalImage");
+            var img = element.querySelector('img'); // 获取被点击div内部的img
+
+            modal.style.display = "flex"; // 使用flex居中
+            modalImg.src = img.src; // 你的原链接就是高清图，直接用src即可
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+
+        // ESC键关闭
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
