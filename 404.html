@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script>
+      (function () {
+        const path = window.location.pathname;
+        const search = window.location.search;
+        const hash = window.location.hash;
+
+        let target = null;
+
+        /**
+         * 1️⃣ /about/xxx  →  /xxx
+         * e.g. /about/index_cn.html → /index_cn.html
+         */
+        if (path.startsWith("/about/")) {
+          target = path.replace("/about", "");
+        }
+
+        /**
+         * 2️⃣ /page/xxx → https://blog.stephen-smj.tech/page/xxx
+         */
+        else if (path.startsWith("/page/")) {
+          target = "https://blog.stephen-smj.tech" + path;
+        }
+
+        /**
+         * 3️⃣ 固定 blog 路径
+         */
+        else if (
+          path === "/tags/" || path.startsWith("/tags/")
+        ) {
+          target = "https://blog.stephen-smj.tech" + path;
+        }
+        else if (
+          path === "/links/" || path.startsWith("/links/")
+        ) {
+          target = "https://blog.stephen-smj.tech" + path;
+        }
+        else if (
+          path === "/moments/" || path.startsWith("/moments/")
+        ) {
+          target = "https://blog.stephen-smj.tech" + path;
+        }
+
+        /**
+         * fallback：回首页
+         */
+        if (!target) {
+          target = "/";
+        }
+
+        // 保留 query / hash
+        window.location.replace(target + search + hash);
+      })();
+    </script>
+
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/" />
+    </noscript>
+  </head>
+
+  <body>
+    Redirecting…
+  </body>
+</html>
