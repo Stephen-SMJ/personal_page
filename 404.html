@@ -11,58 +11,34 @@
         const blogDomain = "https://blog.stephen-smj.tech";
 
         /**
-         * 1. White-list: These paths are meant to stay on the main site.
-         * Files that physically exist on your server usually won't trigger 404,
-         * but we include them here as a safety measure to prevent redirect loops.
+         * 1. Protection List:
+         * These are the ONLY paths that should remain on the main site.
+         * We use an exact match to ensure we don't accidentally redirect the root.
          */
-        const whiteList = [
+        const stayOnMainSite = [
           "/",
           "/index.html",
           "/index_cn.html"
         ];
 
-        if (whiteList.includes(path)) {
-          // Do nothing if the path is in the white-list
-          return;
+        if (stayOnMainSite.includes(path)) {
+          return; // Exit script, stay on current page
         }
 
         /**
-         * 2. Redirection Logic
+         * 2. Redirection Logic:
+         * Since the path is NOT in the protection list, we redirect it.
          */
-        let target = null;
+        let target = blogDomain + path;
 
-        // Case A: Specifically handle /about/ paths (e.g., /about/index.html)
-        if (path.startsWith("/about/")) {
-            target = path.replace("about/","");
-        }
-        else if (path.startsWith("/about")) {
-            target = path.replace("/about","");
-        }
-
-        // Case B: Handle legacy blog posts (e.g., /2020/07/12/xxx)
-        // Matches paths starting with YYYY/MM/DD using Regex
-        if (/^\/\d{4}\/\d{2}\/\d{2}\//.test(path)) {
-            target = blogDomain + path;
-        }
-
-        // Case C: Functional pages (Tags, Categories, Archives, etc.)
-        else if (["/tags/", "/categories/", "/archives/", "/links/", "/moments/"].some(p => path.startsWith(p))) {
-            target = blogDomain + path;
-        }
-
-        // Case D: Fallback for everything else
-        // If the file is not found on the main site, try to find it on the blog
-        else {
-            target = blogDomain + path;
-        }
+        // Special handling for /about/ if you wanted a different structure,
+        // but based on your request, /about/index.html should go to the blog.
+        // So target = blogDomain + path covers this perfectly.
 
         /**
          * 3. Execute Redirect
          */
-        if (target) {
-          // Using .replace() ensures the 404 page doesn't stay in browser history
-          window.location.replace(target + search + hash);
-        }
+        window.location.replace(target + search + hash);
       })();
     </script>
 
