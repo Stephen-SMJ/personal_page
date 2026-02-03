@@ -18,7 +18,11 @@
         const whiteList = [
           "/",
           "/index.html",
-          "/index_cn.html"
+          "/index_cn.html",
+          "/about",
+          "/about/",
+          "/about/index.html",
+          "/about/index_cn.html"
         ];
 
         if (whiteList.includes(path)) {
@@ -32,13 +36,13 @@
         let target = null;
 
         // Case A: Specifically handle /about/ paths (e.g., /about/index.html)
-        if (path.startsWith("/about/")) {
-            target = blogDomain + path;
-        }
+        // if (path.startsWith("/about/")) {
+        //     target = path.replace("/about/","");
+        // }
 
         // Case B: Handle legacy blog posts (e.g., /2020/07/12/xxx)
         // Matches paths starting with YYYY/MM/DD using Regex
-        else if (/^\/\d{4}\/\d{2}\/\d{2}\//.test(path)) {
+        if (/^\/\d{4}\/\d{2}\/\d{2}\//.test(path)) {
             target = blogDomain + path;
         }
 
