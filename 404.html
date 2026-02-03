@@ -1,56 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting to Blog...</title>
+    <title>Redirecting...</title>
     <script>
       (function () {
         const path = window.location.pathname;
         const search = window.location.search;
         const hash = window.location.hash;
+        const mainDomain = "https://stephen-smj.tech";
         const blogDomain = "https://blog.stephen-smj.tech";
 
-        /**
-         * 1. Protection List:
-         * These are the ONLY paths that should remain on the main site.
-         * We use an exact match to ensure we don't accidentally redirect the root.
-         */
-        const stayOnMainSite = [
-          "/",
-          "/index.html",
-          "/index_cn.html"
-        ];
-
-        if (stayOnMainSite.includes(path)) {
-          return; // Exit script, stay on current page
+        const whiteList = ["/", "/index.html", "/index_cn.html"];
+        if (whiteList.includes(path)) {
+          return;
         }
 
-        /**
-         * 2. Redirection Logic:
-         * Since the path is NOT in the protection list, we redirect it.
-         */
-        let target = blogDomain + path;
+        let target = null;
 
-        // Special handling for /about/ if you wanted a different structure,
-        // but based on your request, /about/index.html should go to the blog.
-        // So target = blogDomain + path covers this perfectly.
 
-        /**
-         * 3. Execute Redirect
-         */
-        window.location.replace(target + search + hash);
+        if (path.startsWith("/about/")) {
+          target = mainDomain + "/";
+        }
+
+        else {
+          target = blogDomain + path;
+        }
+
+        // 执行跳转
+        if (target) {
+          window.location.replace(target + search + hash);
+        }
       })();
     </script>
-
     <noscript>
-      <meta http-equiv="refresh" content="0; url=https://blog.stephen-smj.tech/" />
+      <meta http-equiv="refresh" content="0; url=https://stephen-smj.tech/" />
     </noscript>
   </head>
-  <body style="margin: 50px; font-family: sans-serif; text-align: center;">
-    <h2>Page Moved</h2>
-    <p>We are redirecting you to our new address...</p>
-    <p>If you are not redirected automatically, please click
-       <a href="https://blog.stephen-smj.tech/">here to visit our blog</a>.
-    </p>
+  <body>
+    Redirecting...
   </body>
 </html>
