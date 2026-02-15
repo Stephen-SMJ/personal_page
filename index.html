@@ -158,21 +158,36 @@
         .pub-img img { width: 100%; display: block; border-radius: 6px; border: 1px solid #eee; }
         .pub-img-badge {
             position: absolute;
-            top: 0;
-            left: -12px;
-            background: var(--primary-blue);
-            color: whitesmoke;
-            padding: 3px 12px;
+            top: 8px;
+            left: -8px;
+            background: linear-gradient(135deg, #2158b1 0%, #0a57e6 100%);
+            color: #fff;
+            padding: 3.5px 10px;
             font-size: 11px;
-            font-weight: bold;
-            text-align: center;
-            border-radius: 0 0 4px 4px;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 4px 4px 4px 0;
+            box-shadow: 0 4px 12px rgba(43, 82, 152, 0.3);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pub-img-badge::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            border-top: 6px solid #0d1e40;
+            border-left: 8px solid transparent;
         }
         .pub-details { flex: 1; }
         .pub-title { font-size: 17px; font-weight: 700; color: #000; margin-bottom: 6px; line-height: 1.4; }
         .pub-authors { font-size: 15px; color: #444; margin-bottom: 6px; }
         .pub-venue { font-size: 14px; font-style: italic; color: #666; margin-bottom: 10px; }
+        .pub-venue strong {color: #bc2d2d}
 
         .pub-links { display: flex; gap: 10px; flex-wrap: wrap; }
         .pub-btn {
@@ -380,13 +395,17 @@
 
             <div class="news-scroll-container">
                 <div class="news-scroll-item">
+                    <div class="news-scroll-date">Jan 20, 2026</div>
+                    <div class="news-scroll-text">We released paper <strong><a href="https://dsaeval.github.io/DSAEval/">DSAEval: Evaluating Data Science Agents on a Wide Range of Real-World Data Science Problems</a></strong>, introducing a large-scale benchmark with 641 real-world data science tasks across multimodal data and interactive analytical workflows, enabling systematic evaluation of modern data science agents.</div>
+                </div>
+                <div class="news-scroll-item">
                     <div class="news-scroll-date">Aug 22, 2025</div>
                     <div class="news-scroll-text">Our paper <strong><a href="https://doi.org/10.1080/00031305.2025.2561140">A Survey on Large Language Model-based Agents for Statistics and Data Science</a></strong> has been accepted by <strong><a href="https://www.tandfonline.com/action/journalInformation?journalCode=utas20">TAS (The American Statistician)</a></strong>. And It is selected with discussion 🎉.</div>
                 </div>
 
                 <div class="news-scroll-item">
                     <div class="news-scroll-date">May 16, 2025</div>
-                    <div class="news-scroll-text">Paper <strong><a href="https://doi.org/10.1080/01621459.2025.2510000">LAMBDA: A Large Model Based Data Agent</a></strong> accepted by top journal <strong><a href="https://www.tandfonline.com/action/journalInformation?journalCode=uasa20">JASA</a></strong> 🎉. And it is our great honor that the paper is selected with discussion (Only 2) and will be presented at <a href="https://ww2.amstat.org/meetings/jsm/2025/">JSM 2025</a>. We are especially privileged to learn that <a href="https://statistics.stanford.edu/people/david-donoho">Prof. David Donoho</a> will serve as one of the discussants for our work.</div>
+                    <div class="news-scroll-text">Paper <strong><a href="https://doi.org/10.1080/01621459.2025.2510000">LAMBDA: A Large Model Based Data Agent</a></strong> accepted by top journal <strong><a href="https://www.tandfonline.com/action/journalInformation?journalCode=uasa20">JASA</a></strong> 🎉. And it is our great honor that the paper is selected with discussion (Only 2) and will be presented at <a href="https://ww2.amstat.org/meetings/jsm/2025/">JSM 2025</a>. We are especially privileged to learn that <a href="https://statistics.stanford.edu/people/david-donoho"><strong>Prof. David Donoho</strong></a> will serve as one of the discussants for our work.</div>
                 </div>
 
                 <div class="news-scroll-item">
@@ -411,14 +430,38 @@
 
             <div class="pub-item">
                 <div class="pub-img">
-                    <img src="https://s2.loli.net/2026/01/21/WUPKGNCOZsRVfAB.png" alt="DSAEval">
+                    <a href="https://dsaeval.github.io/DSAEval/" target="_blank">
+                        <img src="https://s2.loli.net/2026/02/07/J9ujlxdiPAw8p1z.png" alt="DSAEval">
+                    </a>
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">DARE: Aligning LLM Agents with the R Statistical Ecosystem via Distribution-Aware Retrieval</div>
+                    <div class="pub-authors">
+                        <strong>Maojun Sun</strong>, Yue Wu, Yifei Xie, Ruijian Han*, Binyan Jiang, Defeng Sun, Yancheng Yuan*, Jian Huang*.
+                    </div>
+                    <div class="pub-venue">2026</div>
+                    <div class="pub-links">
+<!--                        <a href="https://arxiv.org/pdf/2601.13591" class="pub-btn">PAPER</a>-->
+                        <a href="https://papers-web.github.io/DARE/" class="pub-btn">Page</a>
+<!--                        <a href="https://github.com/AMA-CMFAI/DSAEval" class="pub-btn">Code</a>-->
+<!--                        <a href="https://dsaeval.lambda.org.ai/" class="pub-btn" >Task View</a>-->
+<!--                        <button class="pub-btn citation-btn" data-paper="dsaeval">BibTeX</button>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-img">
+                    <a href="https://arxiv.org/pdf/2601.13591" target="_blank">
+                        <img src="https://s2.loli.net/2026/01/21/WUPKGNCOZsRVfAB.png" alt="DSAEval">
+                    </a>
                 </div>
                 <div class="pub-details">
                     <div class="pub-title">DSAEval: Evaluating Data Science Agents on a Wide Range of Real-World Data Science Problems</div>
                     <div class="pub-authors">
                         <strong>Maojun Sun</strong>, Yifei Xie, Yue Wu, Ruijian Han*, Binyan Jiang, Defeng Sun, Yancheng Yuan*, Jian Huang*.
                     </div>
-                    <div class="pub-venue">arXiv preprint arXiv:2601.13591, 2026</div>
+                    <div class="pub-venue">Under Review, arXiv preprint arXiv:2601.13591, 2026</div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/pdf/2601.13591" class="pub-btn">PAPER</a>
                         <a href="https://dsaeval.github.io/DSAEval/" class="pub-btn">Page</a>
@@ -431,8 +474,10 @@
 
             <div class="pub-item">
                 <div class="pub-img">
-                    <div class="pub-img-badge">JASA</div>
-                    <img src="figures/lambda_press.gif" onerror="this.src='https://via.placeholder.com/300x150?text=LAMBDA'" alt="LAMBDA">
+                    <div class="pub-img-badge">JASA</div>  <!--<i class="fas fa-medal"></i>-->
+                    <a href="https://doi.org/10.1080/01621459.2025.2510000" target="_blank">
+                        <img src="figures/lambda_press.gif" onerror="this.src='https://via.placeholder.com/300x150?text=LAMBDA'" alt="LAMBDA">
+                    </a>
                 </div>
                 <div class="pub-details">
                     <div class="pub-title">LAMBDA: A Large Model Based Data Agent</div>
@@ -455,8 +500,36 @@
 
             <div class="pub-item">
                 <div class="pub-img">
+                    <div class="pub-img-badge">JASA</div>
+                    <a href="https://doi.org/10.1080/01621459.2025.2510000" target="_blank">
+                        <img src="https://img.heliar.top/file/1770796779915_rejoinder.png" alt="rejoinder.png" width=100% />
+                    </a>
+                </div>
+                <div class="pub-details">
+                    <div class="pub-title">Rejoinder to the Discussions on "LAMBDA: A Large Model Based Data Agent"</div>
+                    <div class="pub-authors">
+                        <strong>Maojun Sun</strong>, Ruijian Han, Binyan Jiang, Houduo Qi, Defeng Sun, Yancheng Yuan*, Jian Huang*.
+                    </div>
+                    <div class="pub-venue">
+                        Accepted. Journal of the American Statistical Association, 2026. (Top Journal)<br>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://www.polyu.edu.hk/ama/cmfai/discussions/rejoinder.pdf" class="pub-btn">Paper</a>
+<!--                        <a href="https://www.polyu.edu.hk/ama/cmfai/lambda.html" class="pub-btn">Page</a>-->
+<!--                        <a href="https://github.com/AMA-CMFAI/LAMBDA" class="pub-btn">Code</a>-->
+<!--                        <a href="https://ama-cmfai.github.io/LAMBDA-Docs/#/" class="pub-btn">Docs</a>-->
+<!--                        <button class="pub-btn citation-btn" data-paper="lambda">BibTeX</button>-->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="pub-item">
+                <div class="pub-img">
                     <div class="pub-img-badge">TAS</div>
-                    <img src="https://s2.loli.net/2025/06/16/xZME7sPSmGktQIp.png" alt="Survey">
+                    <a href="https://doi.org/10.1080/00031305.2025.2561140" target="_blank">
+                        <img src="https://s2.loli.net/2025/06/16/xZME7sPSmGktQIp.png" alt="Survey">
+                    </a>
                 </div>
                 <div class="pub-details">
                     <div class="pub-title">A Survey on Large Language Model-based Agents for Statistics and Data Science</div>
@@ -476,12 +549,14 @@
 
             <div class="pub-item">
                 <div class="pub-img">
-                    <img src="https://s2.loli.net/2024/11/29/bzBoHLN6ESAWxKh.png" alt="LlamaCare">
+                    <a href="https://arxiv.org/pdf/2406.02350" target="_blank">
+                        <img src="https://s2.loli.net/2024/11/29/bzBoHLN6ESAWxKh.png" alt="LlamaCare">
+                    </a>
                 </div>
                 <div class="pub-details">
                     <div class="pub-title">LlamaCare: A Large Medical Language Model for Enhancing Healthcare Knowledge Sharing</div>
                     <div class="pub-authors"><strong>Maojun Sun</strong>.</div>
-                    <div class="pub-venue">arXiv preprint arXiv:2406.02350, 2024.</div>
+                    <div class="pub-venue">Technical Report, arXiv preprint arXiv:2406.02350, 2024.</div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/pdf/2406.02350" class="pub-btn">PAPER</a>
                         <a href="https://github.com/Stephen-SMJ/LLamaCare" class="pub-btn">Code</a>
@@ -491,21 +566,21 @@
                 </div>
             </div>
 
-             <div class="pub-item">
-                <div class="pub-img">
-                    <img src="https://s2.loli.net/2024/11/29/nEJidjPyrYsIDf6.png" alt="Melanoma">
-                </div>
-                <div class="pub-details">
-                    <div class="pub-title">Data Enhancement for Melanoma Classification</div>
-                    <div class="pub-authors"><strong>Maojun Sun</strong>, Anxing Jiang, Zixiong Li.</div>
-                    <div class="pub-venue">IEEE ICAICE, 2021.</div>
-                    <div class="pub-links">
-                        <a href="https://ieeexplore.ieee.org/abstract/document/9797518" class="pub-btn">Paper</a>
-                        <a href="https://github.com/Stephen-SMJ/Melanoma_Classification" class="pub-btn">Code</a>
-                        <button class="pub-btn citation-btn" data-paper="melanoma">BibTeX</button>
-                    </div>
-                </div>
-            </div>
+<!--             <div class="pub-item">-->
+<!--                <div class="pub-img">-->
+<!--                    <img src="https://s2.loli.net/2024/11/29/nEJidjPyrYsIDf6.png" alt="Melanoma">-->
+<!--                </div>-->
+<!--                <div class="pub-details">-->
+<!--                    <div class="pub-title">Data Enhancement for Melanoma Classification</div>-->
+<!--                    <div class="pub-authors"><strong>Maojun Sun</strong>, Anxing Jiang, Zixiong Li.</div>-->
+<!--                    <div class="pub-venue">IEEE ICAICE, 2021.</div>-->
+<!--                    <div class="pub-links">-->
+<!--                        <a href="https://ieeexplore.ieee.org/abstract/document/9797518" class="pub-btn">Paper</a>-->
+<!--                        <a href="https://github.com/Stephen-SMJ/Melanoma_Classification" class="pub-btn">Code</a>-->
+<!--                        <button class="pub-btn citation-btn" data-paper="melanoma">BibTeX</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </section>
 
         <section id="experience">
@@ -635,7 +710,7 @@
     </main>
 
     <div style="margin-top: 20px;">
-        <a href="https://info.flagcounter.com/cV14"><img src="https://s11.flagcounter.com/map/cV14/size_s/txt_000000/border_FFFFFF/pageviews_0/viewers_0/flags_0/" style="width:100%; opacity:0.8;"></a>
+        <a href="https://info.flagcounter.com/cV14"><img src="https://s11.flagcounter.com/map/cV14/size_s/txt_000000/border_FFFFFF/pageviews_1/viewers_0/flags_0/" style="width:100%; opacity:0.8;"></a>
     </div>
 </div>
 
