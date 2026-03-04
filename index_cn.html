@@ -185,7 +185,7 @@
 
         .pub-links { display: flex; gap: 10px; flex-wrap: wrap; }
         .pub-btn {
-            font-size: 11px; font-weight: 600;
+            font-size: 12px; font-weight: 600;
             color: var(--primary-blue); cursor: pointer; background: none; border: none; padding: 0; font-family: 'Inter', sans-serif;
         }
         .pub-btn:hover { text-decoration: underline; }
@@ -244,18 +244,19 @@
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); }
         .modal.show { display: block; }
         .modal-content {
-            background-color: #fefefe; margin: 15% auto; padding: 25px; border: 1px solid #888;
+            background-color: #fefefe; margin: 15% auto; padding: 30px; border: 1px solid #888;
             width: 80%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             position: relative;
         }
+        .modal-content h3{margin: 5px 0;}
         .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
         .close:hover { color: #000; }
         .citation-text {
-            background: #f8f9fa; padding: 15px; margin: 15px 0; overflow-x: auto;
+            background: #f8f9fa; padding: 15px; margin: 10px 0; overflow-x: auto;
             font-family: 'Courier New', Courier, monospace; font-size: 12px; border-radius: 4px; border: 1px solid #eee;
         }
         .copy-btn {
-            background: var(--primary-blue); color: #fff; border: none; padding: 6px 12px;
+            background: var(--primary-blue); color: #fff; border: none; padding: 4px 10px;
             border-radius: 4px; font-size: 12px; cursor: pointer; float: right;
         }
 
@@ -426,11 +427,11 @@
                     </div>
                     <div class="pub-venue">Under Review, 2026</div>
                     <div class="pub-links">
-                        <a href="https://www.polyu.edu.hk/ama/cmfai/papers/dare.pdf" class="pub-btn">论文</a>
-                        <a href="https://papers-web.github.io/DARE/" class="pub-btn">网站</a>
-                        <a href="https://github.com/AMA-CMFAI/DARE/" class="pub-btn">代码</a>
-                        <a href="https://huggingface.co/Stephen-SMJ/DARE-R-Retriever" class="pub-btn" >模型</a>
-                        <a href="https://huggingface.co/datasets/Stephen-SMJ/RPKB" class="pub-btn">数据</a>
+                        <a href="https://www.polyu.edu.hk/ama/cmfai/papers/dare.pdf" class="pub-btn"><i class="fa-solid fa-file-pdf"></i> 论文</a>
+                        <a href="https://papers-web.github.io/DARE/" class="pub-btn"><i class="fa-solid fa-globe"></i> 网站</a>
+                        <a href="https://github.com/AMA-CMFAI/DARE/" class="pub-btn"><i class="fa-brands fa-github"></i> 代码</a>
+                        <a href="https://huggingface.co/Stephen-SMJ/DARE-R-Retriever" class="pub-btn"><img src="figures/hf.png" alt="hf" width="13"> 模型</a>
+                        <a href="https://huggingface.co/datasets/Stephen-SMJ/RPKB" class="pub-btn"><img src="figures/hf.png" alt="hf" width="13"> 数据</a>
 <!--                        <button class="pub-btn citation-btn" data-paper="dsaeval">BibTeX</button>-->
                     </div>
                 </div>
@@ -449,10 +450,11 @@
                     </div>
                     <div class="pub-venue">Under Review, arXiv preprint arXiv:2601.13591, 2026</div>
                     <div class="pub-links">
-                        <a href="https://arxiv.org/pdf/2601.13591" class="pub-btn">论文</a>
-                        <a href="https://dsaeval.github.io/DSAEval/" class="pub-btn">主页</a>
-                        <a href="https://github.com/AMA-CMFAI/DSAEval" class="pub-btn">代码</a>
-                        <button class="pub-btn citation-btn" data-paper="dsaeval">引用</button>
+                        <a href="https://arxiv.org/pdf/2601.13591" class="pub-btn"><i class="fa-solid fa-file-pdf"></i> 论文</a>
+                        <a href="https://dsaeval.github.io/DSAEval/" class="pub-btn"><i class="fa-solid fa-globe"></i> 网站</a>
+                        <a href="https://github.com/AMA-CMFAI/DSAEval" class="pub-btn"><i class="fa-brands fa-github"></i> 代码</a>
+                        <a href="https://dsaeval.lambda.org.ai/" class="pub-btn" ><i class="fa-solid fa-book"></i> 日志</a>
+                        <button class="pub-btn citation-btn" data-paper="dsaeval"><i class="fa-solid fa-quote-right"></i> 引用</button>
                     </div>
                 </div>
             </div>
@@ -474,11 +476,11 @@
                         <strong>🏅 Selected with discussion</strong>
                     </div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.1080/01621459.2025.2510000" class="pub-btn">论文</a>
-                        <a href="https://www.polyu.edu.hk/ama/cmfai/lambda.html" class="pub-btn">主页</a>
-                        <a href="https://github.com/AMA-CMFAI/LAMBDA" class="pub-btn">代码</a>
-                        <a href="https://ama-cmfai.github.io/LAMBDA-Docs/#/" class="pub-btn">文档</a>
-                        <button class="pub-btn citation-btn" data-paper="lambda">引用</button>
+                        <a href="https://doi.org/10.1080/01621459.2025.2510000" class="pub-btn"><i class="fa-solid fa-file-pdf"></i> 论文</a>
+                        <a href="https://www.polyu.edu.hk/ama/cmfai/lambda.html" class="pub-btn"><i class="fa-solid fa-globe"></i> 主页</a>
+                        <a href="https://github.com/AMA-CMFAI/LAMBDA" class="pub-btn"><i class="fa-brands fa-github"></i> 代码</a>
+                        <a href="https://ama-cmfai.github.io/LAMBDA-Docs/#/" class="pub-btn"><i class="fa-solid fa-book"></i> 文档</a>
+                        <button class="pub-btn citation-btn" data-paper="lambda"><i class="fa-solid fa-quote-right"></i> 引用</button>
                     </div>
                 </div>
             </div>
@@ -499,7 +501,7 @@
                         Accepted. Journal of the American Statistical Association, 2026. (顶刊)<br>
                     </div>
                     <div class="pub-links">
-                        <a href="https://www.polyu.edu.hk/ama/cmfai/discussions/rejoinder.pdf" class="pub-btn">Paper</a>
+                        <a href="https://www.polyu.edu.hk/ama/cmfai/discussions/rejoinder.pdf" class="pub-btn"><i class="fa-solid fa-file-pdf"></i> 论文</a>
 <!--                        <a href="https://www.polyu.edu.hk/ama/cmfai/lambda.html" class="pub-btn">Page</a>-->
 <!--                        <a href="https://github.com/AMA-CMFAI/LAMBDA" class="pub-btn">Code</a>-->
 <!--                        <a href="https://ama-cmfai.github.io/LAMBDA-Docs/#/" class="pub-btn">Docs</a>-->
@@ -524,9 +526,9 @@
                     <strong>🏅 Selected with discussion</strong>
                     </div>
                     <div class="pub-links">
-                        <a href="https://doi.org/10.1080/00031305.2025.2561140" class="pub-btn">论文</a>
-                        <a href="https://github.com/Stephen-SMJ/Reading-List-of-LLM-Based-Data-Science-Agent" class="pub-btn">仓库</a>
-                        <button class="pub-btn citation-btn" data-paper="survey">引用</button>
+                        <a href="https://doi.org/10.1080/00031305.2025.2561140" class="pub-btn"><i class="fa-solid fa-file-pdf"></i> 论文</a>
+                        <a href="https://github.com/Stephen-SMJ/Reading-List-of-LLM-Based-Data-Science-Agent" class="pub-btn"><i class="fa-brands fa-github"></i> 仓库</a>
+                        <button class="pub-btn citation-btn" data-paper="survey"><i class="fa-solid fa-quote-right"></i> 引用</button>
                     </div>
                 </div>
             </div>
@@ -542,10 +544,10 @@
                     <div class="pub-authors"><strong>Maojun Sun</strong>.</div>
                     <div class="pub-venue">arXiv preprint arXiv:2406.02350, 2024.</div>
                     <div class="pub-links">
-                        <a href="https://arxiv.org/pdf/2406.02350" class="pub-btn">论文</a>
-                        <a href="https://github.com/Stephen-SMJ/LLamaCare" class="pub-btn">代码</a>
-                        <a href="https://huggingface.co/Stephen-smj/LlamaCare" class="pub-btn">HuggingFace</a>
-                        <button class="pub-btn citation-btn" data-paper="llamacare">引用</button>
+                        <a href="https://arxiv.org/pdf/2406.02350" class="pub-btn"><i class="fa-solid fa-file-pdf"></i> 论文</a>
+                        <a href="https://github.com/Stephen-SMJ/LLamaCare" class="pub-btn"><i class="fa-brands fa-github"></i> 代码</a>
+                        <a href="https://huggingface.co/Stephen-smj/LlamaCare" class="pub-btn"><img src="figures/hf.png" alt="hf" width="13"> 模型</a>
+                        <button class="pub-btn citation-btn" data-paper="llamacare"><i class="fa-solid fa-quote-right"></i> 引用</button>
                     </div>
                 </div>
             </div>
