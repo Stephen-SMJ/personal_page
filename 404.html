@@ -12,7 +12,7 @@
         const blogDomain = "https://blog.stephen-smj.tech";
 
         // 1. 白名单：主站首页，不执行跳转
-        const whiteList = ["/", "/index.html", "/index_cn.html", "/public"];
+        const whiteList = ["/", "/index.html", "/index_cn.html", "/public/sitemap.xml"];
         if (whiteList.includes(path)) {
           return;
         }
