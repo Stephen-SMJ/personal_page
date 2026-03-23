@@ -1,0 +1,44 @@
+.hf-badge {
+  margin-top: 0 ;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background-color: #facc15; /* 类似 HuggingFace 黄色 */
+  color: #111;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  padding: 3px 6px;
+  border-radius: 5px; /* 圆角 pill */
+
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hf-emoji {
+  font-size: 14px;
+}
+
+.dis-emoji {
+  font-size: 15px;
+}
+
+.dis-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background-color: #da1010;
+  color: white;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  padding: 3px 6px;
+  border-radius: 5px; /* 圆角 pill */
+
+  line-height: 1;
+  white-space: nowrap;
+}
