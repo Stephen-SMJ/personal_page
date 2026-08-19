@@ -407,9 +407,14 @@ li {
     grid-column: 1;
     grid-row: 2;
     margin: 0;
+    text-align: left;
     color: #666;
     font-size: 13px;
     line-height: 1.5;
+}
+
+.pub-note-unit {
+    white-space: nowrap;
 }
 
 .pub-filters {
