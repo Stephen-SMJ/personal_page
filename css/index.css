@@ -522,8 +522,8 @@ li {
     --ribbon-blue: #105bc4;
     top: 8px;
     left: -8px;
-    padding: 2px 2px 2px 0;
-    background: #e0ad2f;
+    padding: 0;
+    background: var(--ribbon-blue);
     border-radius: 4px 0 0 0;
     box-shadow: 0 3px 7px rgba(5, 54, 137, 0.24);
 }
@@ -535,7 +535,7 @@ li {
     right: -11px;
     width: 12px;
     height: 100%;
-    background: #e0ad2f;
+    background: var(--ribbon-blue);
     clip-path: polygon(0 0, 100% 0, 38% 50%, 100% 100%, 0 100%);
     z-index: 0;
 }
@@ -545,18 +545,7 @@ li {
     z-index: 1;
     display: block;
     padding: 5px 9px;
-    background: var(--ribbon-blue);
-}
-
-.pub-badge-tail > span::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -11px;
-    width: 12px;
-    height: 100%;
-    background: var(--ribbon-blue);
-    clip-path: polygon(0 0, 100% 0, 38% 50%, 100% 100%, 0 100%);
+    background: transparent;
 }
 
 .pub-badge-tail::before {
